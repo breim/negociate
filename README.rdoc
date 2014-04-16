@@ -1,28 +1,9 @@
-== README
+== negociate
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Sistema de cadastro de empresas para realização de emprestimos e recebimentos da empresa.
 
-Things you may want to cover:
+É adaptado para o mundo mobile (bootstrap 3), tendo em vista que o credor do emprestimo fica na rua lançando o emprestimo/recebimento do valor.
+Tem como objetivo estabeleciamentos comerciais, pois o dono do emprestimo, não tem o controle de quem pagou diariamente o valor devido.
 
-* Ruby version
+O sistema ainda não está completo, devido a falta de posicionamento do cliente.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
