@@ -1,0 +1,37 @@
+<h1>Listing debts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Valor</th>
+      <th>Percentual</th>
+      <th>Total</th>
+      <th>Prazo</th>
+      <th>Company</th>
+      <th>Collector</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @debts.each do |debt| %>
+      <tr>
+        <td><%= debt.valor %></td>
+        <td><%= debt.percentual %></td>
+        <td><%= debt.total %></td>
+        <td><%= debt.prazo %></td>
+        <td><%= debt.company_id %></td>
+        <td><%= debt.collector_id %></td>
+        <td><%= link_to 'Show', debt %></td>
+        <td><%= link_to 'Edit', edit_debt_path(debt) %></td>
+        <td><%= link_to 'Destroy', debt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Debt', new_debt_path %>

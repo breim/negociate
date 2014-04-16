@@ -1,0 +1,69 @@
+<%= render :partial => '/layouts/menu_lateral' %>
+<h4> Empresas </h4>
+<hr>
+<% if notice.present? %>
+    <div class="alert alert-success">
+        <%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    </div>
+<% end %>
+
+Buscar empresa para novo emprestimo
+<br>
+
+<%= form_tag(companies_path, :method => "get", id: "search-form",:remote => true) do %>
+	<div class="input-group navbar-form">
+	    <%= text_field_tag :search, params[:search], :class => "form-control", placeholder: "Buscar pelo CNPJ" %>
+        <span class="input-group-btn">
+    	    <%= button_tag(type: "submit", class: "btn btn-default") do %>
+            	<i class="fa fa-search"></i>
+            <% end %>
+        </span>
+    </div>         
+<% end %>
+
+<div id="empresas">
+      <%= render :partial => 'busca_empresas' %>
+</div>
+
+
+<hr>
+
+<% if @collector.companies.count == 0 %>
+    <center>
+        Nenhuma empresa cadastrada.
+        <%= link_to "<i class='fa fa-plus'></i> Cadastrar uma nova empresa".html_safe, new_company_registration_path,:class => "btn btn-success btn-block hidden-sm hidden-md hidden-lg" %>
+        <%= link_to "<i class='fa fa-plus'></i> Cadastrar uma nova empresa".html_safe, new_company_registration_path,:class => "btn btn-success hidden-xs" %>
+    </center>
+<% else %>
+    <div class="panel panel-primary">
+        <div class="panel-heading">  
+            Encontradas: <%= pluralize(@collector.companies.count, "empresa") %> <br>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>Contato</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @collector.companies.order("created_at desc").each do |company| %>
+                    <tr>
+                        <td><%= company.id %></td>
+                        <td><%= link_to company.nome[0..20],company_path(company) %>
+                        <td><%= company.cnpj %>
+                        <td><%= company.contato[0..10] %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+<% end %>
+
+
+<br>
+
+<%= render :partial => '/layouts/footer' %>

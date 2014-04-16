@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="navbar-custom navbar-default-custom navbar-fixed-top-custom" role="navigation">
+    	<div class="container">
+        	<div class="row">
+            	<div class="col-md-5 col-sm-5 col-lg-5">	
+              		<div class="navbar-header">
+		                <% if current_collector.present? %>
+		                 	<div class="dropdown pull-right hidden-md hidden-sm hidden-lg userimg-xs">
+			                    <a data-toggle="dropdown" href="#">
+			                        <i class="fa fa-chevron-down"></i>
+			                    </a>
+			                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			                      <li class="dropdown">
+			                        <a class="text-muted"></a>
+			                      </li>
+			                      <li class="dropdown">
+			                       <%= link_to('Sair', destroy_collector_session_path, :method => :delete) %>
+			                      </li>
+			                    </ul>
+		                  	</div>
+		                <% end %>
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		                  <span class="sr-only">Toggle navigation</span>
+		                  <span class="icon-bar"></span>
+		                  <span class="icon-bar"></span>
+		                  <span class="icon-bar"></span>
+		                </button>
+		                <a class="navbar-brand" href="/">
+		                	Empresa
+		                </a>
+		            </div>
+		        </div>
+				<div class="navbar-collapse collapse">
+		        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		            	<form class="navbar-form navbar-right">
+		                	<% if current_collector %>
+		  			        	<div class="dropdown hidden-xs">       
+		                        	<a data-toggle="dropdown" href="#">
+			                        	<img src="https://graph.facebook.com/<%# current_user.uid %>/picture" height="34" width="34" class="img-rounded" >&nbsp;&nbsp;
+			                        	<%= current_collector.email %>
+			                        	<i class="fa fa-chevron-down"></i>
+		                     		</a>
+				                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				                    	<li class="dropdown">
+				                        	<a class="text-muted"><%= current_collector.nome %></a>
+				                      	</li>
+				                      	<li class="dropdown">
+				                        	<%= link_to('Configurações',  edit_collector_registration_path) %>
+				                      	</li>
+				                      	<li class="dropdown">
+				                        	<%= link_to('Sair', destroy_collector_session_path, :method => :delete) %>
+				                      	</li>
+				                    </ul>
+		                   		</div>
+		                  	<% else %>
+		                    	<%= link_to "Sign up", new_collector_registration_path %>/
+		    				    <%= link_to "Sign in", new_collector_session_path %>
+		                  	<% end %>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>   
+
+    <!-- CSS Trick para resolução em PC,Tablet e celular !-->
+    <div class="sizeLG hidden-md hidden-sm">
+    </div>
+    <div class="sizeMD hidden-lg">
+    </div>
+    <div class="sizeSM hidden-lg hidden-md hidden-sm">
+    </div>
+    <!-- Fim do Trick !-->
+
+
+
+<%= yield %>
+
+</body>
+</html>

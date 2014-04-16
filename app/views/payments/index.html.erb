@@ -1,0 +1,37 @@
+<h1>Listing payments</h1>
+<% if notice.present? %>
+  <div class="alert alert-success">
+      <%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>Collector</th>
+      <th>Company</th>
+      <th>Debt</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payment.debts.each do |payment| %>
+      <tr>
+        <td><%= payment.total %></td>
+        <td><%= payment.collector_id %></td>
+        <td><%= payment.company_id %></td>
+        <td><%= payment.debt_id %></td>
+        <td><%# link_to 'Show', payment %></td>
+        <td><%= link_to 'Edit', edit_company_debt_payment_path(:id => payment.id,:company_id => params[:company_id],:debt_id => params[:debt_id]) %></td>
+        <td><%# link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

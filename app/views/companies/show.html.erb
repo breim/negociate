@@ -1,0 +1,74 @@
+<%= render :partial => '/layouts/menu_lateral' %>
+<h4> Empresa <%= @company.nome %> </h4>
+<hr>
+<% if notice.present? %>
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= notice %>
+    </div>
+<% end %>
+<%= link_to '<strong>Editar empresa</strong>'.html_safe, edit_company_path, :class => "pull-right btn btn-warning" %> 
+<label>Nome:</label>
+<%= @company.nome %>
+<br>
+<label>CNPJ:</label>
+<%= @company.cnpj %>
+<br>
+<label>Contato:</label>
+<%= @company.contato %>
+<br>
+<label>Telefone:</label>
+<%= @company.telefone %>
+<br>
+<label>Celular:</label>
+<%= @company.celular %>
+<br>
+<label>E-mail:</label>
+<%= @company.email %>
+<br>
+<label>Cadastrado em:</label>
+<%= br_date @company.created_at %>
+
+<br>
+Emprestimos
+<hr>
+
+<%= link_to '<strong><i class="fa fa-usd"></i> Novo emprestimo</strong>'.html_safe, new_company_debt_path(:company_id => @company.id), :class => "pull-right btn btn-success" %> 
+<br>
+<br>
+
+<div class="panel panel-info">
+  <div class="panel-heading">      
+            <% if @company.debts.count == 0 %>
+                Nenhum emprestimo <br>
+            <% else %>
+                A empresa tem : <%= pluralize(@company.debts.count, "emprestimo") %><br>
+            <% end %>
+        </div>  
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>%</th>
+                    <th><i class="fa fa-calendar"></i> </th>
+                    <th>Parcela</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @company.debts.order("created_at desc").each do |company| %>
+                    <tr>
+                        <td><%= company.id %></td>
+                        <td><%= company.percentual.to_f %></td>
+                        <td><%= company.prazo.to_i %></td>
+                        <td><%= company.valorapagardia.to_f %></td>
+                        <td><%= company.total.to_f %></td>
+                        <td><%= link_to "Ver emprestimo",company_debt_path(:company_id => company.company.id,:id => company.id) %></td>
+                    </tr>
+                <% end %>
+            </tbody>    
+        </table>
+    </div>
+
+<%= render :partial => '/layouts/footer' %>

@@ -1,0 +1,35 @@
+<%= render :partial => '/layouts/menu_lateral' %>
+<h4> Emprestimos </h4>
+<hr>
+<% if @collector.debts.count == 0 %>
+    <center>
+        nenhum emprestimo realizado :/
+    <center> 
+<% else %>
+    <div class="panel panel-info">
+        <div class="panel-heading">      
+                Encontrado : <%= pluralize(@collector.debts.count, "emprestimo") %><br>
+        </div>  
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Empresa</th>
+                    <th>CNPJ</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @collector.debts.order("created_at desc").each do |company| %>
+                    <tr>
+                        <td><%= company.id %></td>
+                        <td><%= link_to company.company.nome[0..10],company_debt_path(:company_id => company.company.id,:id => company.id) %></td>
+                        <td><%= company.company.cnpj %></td>
+                        <td><%= company.total.to_f %></td>
+                    </tr>
+                <% end %>
+            </tbody>    
+        </table>
+    </div>
+<% end %>
+<%= render :partial => '/layouts/footer' %>

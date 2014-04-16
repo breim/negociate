@@ -1,0 +1,155 @@
+<%= render :partial => '/layouts/menu_lateral' %>
+<h4> Emprestimo realizado </h4>
+<hr>
+<% if notice.present? %>
+  <div class="alert alert-success">
+      <%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    </div>
+<% end %>
+
+<%= link_to '<strong><i class="fa fa-building-o"></i> Ver empresa</strong>'.html_safe, company_path(@company), :class => "pull-right btn btn-default" %> 
+<h4 class="text-primary">Dados da empresa</h4>
+<label>Empresa</label>
+<%= @debt.company.nome %>
+<br>
+
+<label>CNPJ</label>
+<%= @debt.company.cnpj %>
+<br>
+
+<label>Contato</label>
+<%= @debt.company.contato %>
+<br>
+
+<label>Email</label>
+<%= @debt.company.email %>
+<br>
+
+<label>Telefone</label>
+<%= @debt.company.telefone %>
+<br>
+
+<label>Celular</label>
+<%= @debt.company.telefone %>
+<br>
+
+
+<hr>
+
+<%= link_to '<strong><i class="fa fa-edit"></i> Editar emprestimo</strong>'.html_safe, edit_company_debt_path(:company_id => @company.id), :class => "pull-right btn btn-warning" %> 
+
+<h4 class="text-warning">Emprestimo</h4>
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>%</th>
+      <th><i class="fa fa-calendar"></i> </th>
+      <th>Parcela</th>
+      <th>Negociador</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><h4 class="text-danger"><%= @debt.total.to_f %></h4></td>
+        <td><%= @debt.percentual.to_f %></td>
+        <td><%= @debt.prazo.to_i %></td>
+        <td><%= @debt.valorapagardia.to_f %></td>
+        <td><%= @debt.collector.nome[0..14] %></td>
+      </tr>
+  </tbody>    
+</table>
+
+<hr>
+  <button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">
+    <i class="fa fa-money"></i>
+    <strong>Informar pagamento</strong>
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Digite o valor para o pagamento</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div style="padding-left:20px;"> 
+              <p>
+                <center>
+                  <%= form_for(@payment, :remote => true) do |f| %>
+                    <div class="input-group">
+                      <span class="input-group-addon">R$</span>
+                      <%= f.text_field :total,:class => "form-control", :onkeypress => "mascara(this,float)" %>
+                      <%= f.hidden_field :company_id, :value => @company.id %>
+                      <%= f.hidden_field :debt_id, :value => @debt.id %>
+                      <%= f.hidden_field :collector_id, :value => current_collector.id %>
+                    </div>
+                    <br>  
+                    <%= f.submit "Enviar pagamento",:class => "btn btn-success btn-lg btn-block" %>
+                  <% end %>             
+                </center>
+              </p>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<h4 class="text-success">Pagamentos</h4>
+<br>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Pagamento</th>
+      <th>Pago em</th>
+      <th>Negociador</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @debt.payments.order("created_at desc").each do |payment| %>
+    <tr>
+      <th><h4 class="text-success"><%= payment.total.to_f %></h4></th>
+      <th><%= br_data_dia_mes_ano payment.created_at %></th>
+      <th><%= payment.collector.nome %></th>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+<br>
+
+<%= link_to '<strong> Apagar emprestimo </strong>'.html_safe, @debit, method: :delete, data: { confirm: 'Você tem certeza ?'}, :class => "pull-right btn btn-danger btn-block" %> 
+
+
+<%= render :partial => '/layouts/footer' %>
+
+
+<script type="text/javascript">
+function mascara(o,f){
+    v_obj=o
+    v_fun=f
+    setTimeout("execmascara()",1)
+}
+function execmascara(){
+    v_obj.value=v_fun(v_obj.value)
+}
+function float(v){
+    v=v.replace(",",".")
+  return v;
+}
+</script>

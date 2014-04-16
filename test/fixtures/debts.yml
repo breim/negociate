@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  valor: 
+  percentual: 
+  total: 
+  prazo: 
+  company_id: 
+  collector_id: 
+
+two:
+  valor: 
+  percentual: 
+  total: 
+  prazo: 
+  company_id: 
+  collector_id: 

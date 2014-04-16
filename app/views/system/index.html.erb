@@ -1,0 +1,12 @@
+<%= render :partial => '/layouts/menu_lateral' %>
+<h4> Menu do sistema </h4>
+<hr>
+<% if notice.present? %>
+	<div class="alert alert-success">
+    	<%= notice %>
+       	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    </div>
+<% end %>
+<%= link_to "<i class='fa fa-plus'></i> Cadastrar uma nova empresa".html_safe, new_company_registration_path,:class => "btn btn-success btn-block hidden-sm hidden-md hidden-lg" %>
+<%= link_to "<i class='fa fa-plus'></i> Cadastrar uma nova empresa".html_safe, new_company_registration_path,:class => "btn btn-success hidden-xs" %>
+<%= render :partial => '/layouts/footer' %>

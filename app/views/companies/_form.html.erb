@@ -1,0 +1,47 @@
+<h4> Editar a empresa <%= @company.nome %> </h4>
+<%= form_for(@company) do |f| %>
+	<% if @company.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this debt from being saved:</h2>
+
+      <ul>
+      <% @company.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-group">
+    <label>Nome</label>
+    <%= f.text_field :nome,:class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>CNPJ</label>
+    <%= f.text_field :cnpj,:class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Contato</label>
+    <%= f.text_field :contato,:class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Telefone</label>
+    <%= f.text_field :telefone,:class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Celular</label>
+    <%= f.text_field :celular,:class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <%= f.text_field :email,:class => "form-control" %>
+  </div>
+
+<%= f.submit "Salvar",:class => "btn btn-primary btn-lg btn-block" %>
+
+<% end %>

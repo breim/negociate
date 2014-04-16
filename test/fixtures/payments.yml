@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 
+  collector_id: 
+  company_id: 
+  debt_id: 
+
+two:
+  total: 
+  collector_id: 
+  company_id: 
+  debt_id: 
